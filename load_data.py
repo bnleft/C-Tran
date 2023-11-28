@@ -85,7 +85,7 @@ def get_data(args):
                                       testing=True)
 
     elif dataset == 'chexpert':
-        chexpert_root = os.path.join(data_root, 'CheXpert-v1.0-small')
+        chexpert_root = os.path.join(data_root, 'CheXpert-v1.0-small')  # Update this path to your own CheXpert data
         train_data_name = 'train.csv'
         val_data_name = 'valid.csv'
 

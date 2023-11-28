@@ -10,6 +10,18 @@ Conference on Computer Vision and Pattern Recognition (CVPR) 2021<br/>
 
 Python version 3.7 is required and all major packages used and their versions are listed in `requirements.txt`.
 
+```
+pip install -r requirements.txt
+```
+
+Must use MacOS or Linux.
+
+### C-Tran on CheXpert Dataset ###
+Train New Model
+```
+python main.py --lr 0.0001 --optim 'adam' --layers 3 --dataset 'chexpert' --use_lmt --dataroot data/
+```
+
 ### C-Tran on COCO80 Dataset ###
 Download COCO data (19G)
 ```
