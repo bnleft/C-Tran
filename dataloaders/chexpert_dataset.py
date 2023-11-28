@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
@@ -5,11 +6,11 @@ from dataloaders.data_utils import image_loader, get_unk_mask_indices
 
 
 class ChexpertDataset(Dataset):
-    def __init__(self, split, num_labels, data_file, img_root, transform, testing):
+    def __init__(self, split, num_labels, data_file, data_root, transform, testing):
         self.split = split
         self.split_data = pd.read_csv(data_file)
 
-        self.img_root = img_root
+        self.data_root = data_root
         self.transform = transform
         self.num_labels = num_labels
         self.known_labels = 0
@@ -22,7 +23,7 @@ class ChexpertDataset(Dataset):
     def __getitem__(self, index):
         item = self.split_data.iloc[[index]]
 
-        image_path = item.loc['Path']
+        image_path = os.path.join(self.data_root, item.loc['Path'])
         image = image_loader(image_path, self.transform)
 
         first_label_index = 5

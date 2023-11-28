@@ -86,8 +86,6 @@ def get_data(args):
 
     elif dataset == 'chexpert':
         chexpert_root = os.path.join(data_root, 'CheXpert-v1.0-small')
-        train_img_root = os.path.join(chexpert_root, 'train')
-        val_img_root = os.path.join(chexpert_root, 'valid')
         train_data_name = 'train.csv'
         val_data_name = 'valid.csv'
 
@@ -95,7 +93,7 @@ def get_data(args):
             split='train',
             num_labels=args.num_labels,
             data_file=os.path.join(chexpert_root, train_data_name),
-            img_root=train_img_root,
+            data_root=data_root,
             transform=trainTransform,
             testing=False
         )
@@ -103,7 +101,7 @@ def get_data(args):
             split='val',
             num_labels=args.num_labels,
             data_file=os.path.join(chexpert_root, val_data_name),
-            img_root=val_img_root,
+            data_root=data_root,
             transform=testTransform,
             testing=True
         )
