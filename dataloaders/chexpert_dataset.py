@@ -21,7 +21,7 @@ class ChexpertDataset(Dataset):
         return len(self.split_data)
 
     def __getitem__(self, index):
-        item = self.split_data.iloc[[index]]
+        item = self.split_data.iloc[index]
 
         image_path = os.path.join(self.data_root, item.loc['Path'])
         image = image_loader(image_path, self.transform)
