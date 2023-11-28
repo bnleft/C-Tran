@@ -1,5 +1,7 @@
 import pandas as pd
+import torch
 from torch.utils.data import Dataset
+from dataloaders.data_utils import image_loader, get_unk_mask_indices
 
 
 class ChexpertDataset(Dataset):
@@ -18,15 +20,24 @@ class ChexpertDataset(Dataset):
         return len(self.split_data)
 
     def __getitem__(self, index):
-        item = self.split_data[index]
+        item = self.split_data.iloc[[index]]
 
-        print(item)
+        image_path = item.loc['Path']
+        image = image_loader(image_path, self.transform)
 
-        # TODO: implement this
+        first_label_index = 5
+        labels = item.iloc[first_label_index:first_label_index + self.num_labels - 1]
+        labels = torch.Tensor(labels)
+
+        unk_mask_indices = get_unk_mask_indices(image,self.testing, self.num_labels,self.known_labels)
+
+        mask = labels.clone()
+        mask.scatter_(0, torch.Tensor(unk_mask_indices).long(), -1)
+
         sample = {
-            'image': None,
-            'labels': None,
-            'mask': None,
-            'imageIDs': None
+            'image': image,
+            'labels': labels,
+            'mask': mask,
+            'imageIDs': image_path
         }
         return sample
