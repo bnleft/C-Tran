@@ -30,7 +30,6 @@ class ChexpertDataset(Dataset):
         labels = item.iloc[first_label_index:first_label_index + self.num_labels]
         labels = labels.fillna(0)
         labels = torch.Tensor(labels)
-        print(labels)
 
         unk_mask_indices = get_unk_mask_indices(image,self.testing, self.num_labels,self.known_labels)
 
